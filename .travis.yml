@@ -10,5 +10,5 @@ script:
 after_success:
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   - docker build -t robertreynisson/traviscontainer .
-  - dockert run -rm robertreynisson/traviscontainer
+  - docker run robertreynisson/traviscontainer
   - docker ps -a
