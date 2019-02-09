@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HiThere {
 
-    @RequestMapping("/")
+    @RequestMapping("/SayHi")
     public String hi() {
         return "Hello";
     }
