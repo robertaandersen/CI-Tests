@@ -1,10 +1,10 @@
 package com.example.citest;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
-public class HiThere {
+@RestController
+public class HiThereController {
 
     @RequestMapping("/SayHi")
     public String hi() {
