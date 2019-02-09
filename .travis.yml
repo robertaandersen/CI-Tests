@@ -1,17 +1,18 @@
 language: java
 jdk: oraclejdk8
 
+script:
+  - ./mvnw clean install -B
+
 services:
   - docker
 
-jobs:
-  include:
-    - stage: build docker image
-      script:
-        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker build -t traviscontainer .
-        - docker images
-        - docker tag traviscontainer $DOCKER_USERNAME/traviscontainer
-        - docker push $DOCKER_USERNAME/traviscontainer
-    - stage: test
-    - script: docker run --rm $DOCKER_USERNAME/traviscontainer cat hello.txt
+before_install:
+  - docker build -t robertreynisson/traviscontainer .
+  - docker ps -a
+
+deploy:
+  provider: script
+  script: bash docker_push
+  on:
+    branch: master
