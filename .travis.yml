@@ -6,9 +6,14 @@ services:
 
 script:
   - ./mvnw clean install -B
+env:
+  global:
+    - COMMIT=${TRAVIS_COMMIT::7}
 
 after_success:
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-  - docker build -t robertreynisson/traviscontainer .
-  - docker run robertreynisson/traviscontainer
+  - export IMAGE_NAME=robertreynisson/traviscontainer
+  - docker build -t $IMAGE_NAME:$COMMIT .
+  - docker tag $IMAGE_NAME:$COMMIT $IMAGE_NAME:latest
+  - docker push $IMAGE_NAME
   - docker ps -a
