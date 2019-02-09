@@ -9,9 +9,6 @@ script:
 
 after_success:
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-  - export TAG=latest
-  - export IMAGE_NAME=robertreynisson/traviscontainer
-  - docker build -t $IMAGE_NAME:$COMMIT .
-  - docker tag $IMAGE_NAME:$COMMIT $IMAGE_NAME:$TAG
-  - docker push $IMAGE_NAME
+  - docker build -t robertreynisson/traviscontainer .
+  - dockert run -rm robertreynisson/traviscontainer
   - docker ps -a
