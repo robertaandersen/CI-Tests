@@ -5,7 +5,7 @@ services:
   - docker
 
 before_install:
-  - docker build -t robert/test .
+  - docker build -t robertreynisson/test .
 
 deploy:
   provider: script
